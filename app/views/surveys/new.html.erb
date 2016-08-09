@@ -1,0 +1,6 @@
+<h2>Build a Survey</h2>
+<%= form_for @survey do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description %>
+  <%= f.submit %>
+<% end %>
