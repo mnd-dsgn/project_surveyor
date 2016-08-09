@@ -1,0 +1,14 @@
+<%= form_for @survey do |survey| %>
+  <%= survey.label "Your survey's name:" %>
+  <%= survey.text_field :name %><br>
+  <%= survey.label "A description of your survey." %>
+  <%= survey.text_area :description %>
+  <% count = 1 %>
+  <%= survey.fields_for :questions, @survey.questions do |question_field| %>
+    <p>Question <%= count %></p>
+    <% count += 1 %>
+    <%= question_field.label :text %>
+    <%= question_field.text_area :text %><br>
+  <% end %>
+  <%= survey.submit %>
+<% end %>

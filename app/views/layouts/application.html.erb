@@ -7,6 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= flash[:success] %>
+<%= flash[:errors] %>
 <%= render 'shared/nav' %>
 <%= yield %>
 
