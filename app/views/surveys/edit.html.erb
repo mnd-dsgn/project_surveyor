@@ -1,14 +1,42 @@
 <%= form_for @survey do |survey| %>
-  <%= survey.label "Your survey's name:" %>
-  <%= survey.text_field :name %><br>
-  <%= survey.label "A description of your survey." %>
-  <%= survey.text_area :description %>
-  <% count = 1 %>
-  <%= survey.fields_for :questions, @survey.questions do |question_field| %>
-    <p>Question <%= count %></p>
-    <% count += 1 %>
-    <%= question_field.label :text %>
-    <%= question_field.text_area :text %><br>
-  <% end %>
-  <%= survey.submit %>
+  <div class="row">
+    <div class="col-sm-3">
+      <span class="medium-font"><%= survey.label "Your survey's name:" %></span>
+    </div>
+    <div class="col-sm-8">
+      <%= survey.text_field :name, class: "form-control" %><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <span class="medium-font"><%= survey.label "A description of your survey." %></span>
+    </div>
+    <div class="col-sm-8">
+      <%= survey.text_area :description, class: "form-control" %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= survey.submit %>
+    </div>
+  </div>
 <% end %>
+<% if @survey.questions.empty? %>
+  <div class="row">
+    <div class="col-xs-12">
+      <br><p class="medium-font"> This survey has no questions. </p>
+    </div>
+  </div>
+<% else %>
+  <% @survey.questions.each_with_index do |question, idx| %>
+    <p><%= idx + 1 unless @survey.questions.length == 1 %></p>
+    <p><%= question.text %></p>
+    <p><%= link_to "Edit this question", edit_survey_question_path(@survey.id, question.id) %></p>
+    <% alpha = Array ('A'..'Z') %><% count = 0 %>
+    <% question.answers.each_with_index do |answer, index| %>
+      <%= alpha[count] %><% count += 1 %>
+      <p><%= answer.text %></p>
+    <% end %>
+  <% end %>
+<% end %>
+<p class="medium-font"><%= link_to "Add a number range question for this survey.", new_survey_question_path(@survey.id, type: "range") %> <%= link_to "Add a multiple choice question to this survey",  new_survey_question_path(@survey.id, type: "choice")%></p>

@@ -1,0 +1,44 @@
+<h2>Add a new question</h2><br>
+<div class="row">
+
+  <%= form_for [@survey, @question] do |question| %>
+    <div class="col-sm-3"><%= question.label "Question text:" %></div>
+    <div class="col-sm-7"><%= question.text_area :text, class: "form-control" %></div>
+  </div>
+  <br>
+  <% if params[:type] == "range" %>
+  <div class="row">
+    <div class="col-sm-3">
+      <label for="min_range">What is the minimum value of the range?</label>
+    </div>
+    <div class="col-sm-1">
+      <input class="form-control" id="min_range" type="text" name="min_range" value="1">
+    </div>
+    <div class="col-sm-3">
+      <label for="max_range">What is the maximum value of the range?</label>
+    </div>
+    <div class="col-sm-1">
+      <input class="form-control" id="max_range" type="text" name="max_range" value="10">
+    </div>
+  </div><br>
+  <% else %>
+  <div class="row">
+    <div class="col-sm-3">
+      <label for="num_options">How many options should this question have?</label>
+    </div>
+    <div class="col-sm-1">
+      <input class="form-control" id="num-options" type="text" name="num_options" value="1">
+    </div>
+    <div class="col-sm-3">
+      <label for="num_answers">How many options can be selected?</label>
+    </div>
+    <div class="col-sm-1">
+      <input class="form-control" id="just-one" type="radio" name="num_answers" value="just_one"><span>Just one</span>
+      <input class="form-control" id="multiple" type="radio" name="num_answers" value="multiple"><span>Multiple</span>
+    </div>
+  </div><br>
+  <% end %>
+  <div class="row">
+    <div class="col-xs-12 medium-font"><%= question.submit %></div>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<%= form_for @question do |question| %>
+  <p>Question <%= count %></p>
+  <% count += 1 %>
+  <%= question.label :text %>
+  <%= question.text_area :text %><br>
+
+  <%= question.fields_for :answers do |answer| %>
+    <p>Answers</p>
+    <%= answer.text %>
+  <% end %>
+
+<% end %>

@@ -1,0 +1,12 @@
+<%= form_for [@survey, @question] do |q| %>
+  <%= q.label "Question:" %>
+  <%= q.text_field :text %>
+  <h3>Answers</h3>
+  <% count = 0 %>
+  <% alpha = Array ('A'..'Z') %>
+  <%= q.fields_for :answers, @question.answers do |a| %>
+    <%= content_tag :span, alpha[count], class: "input-group-addon"%> <% count += 1 %>
+    <%= a.text_field :text, class: "form-control" %><br>
+  <% end %>
+  <%= q.submit class: "medium-font" %>
+<% end %>
